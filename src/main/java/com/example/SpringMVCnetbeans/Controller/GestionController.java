@@ -50,12 +50,12 @@ public class GestionController {
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public @ResponseBody Compte getCompte(@RequestParam String password) {
+    public @ResponseBody Compte getCompte(@RequestParam String password,@RequestParam String login) {
         /*if(compteRepository.existsById(id)){
             System.out.println("ui");
         }
         return compteRepository.findOneById(id);*/
-        return compteRepository.findOneByPassword(password);
+        return compteRepository.findOneByPasswordAndLogin(password, login);
     }
     
     @RequestMapping(value = "/delete", method = RequestMethod.GET) // Map ONLY GET Requests

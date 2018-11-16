@@ -21,5 +21,5 @@ public interface CompteRepository extends PagingAndSortingRepository<Compte, Lon
     public List<Compte> findAll();
     
     public Compte findOneById(Long id);
-    public Compte findOneByPassword(String password);
+    public Compte findOneByPasswordAndLogin(String password, String login);
 }
