@@ -7,13 +7,18 @@ package com.example.SpringMVCnetbeans.Controller;
 
 import Repository.CompteRepository;
 import com.example.SpringMVCnetbeans.Entity.Compte;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 /**
  *
@@ -26,7 +31,7 @@ public class GestionController {
 
     @RequestMapping(value = "/sample", method = RequestMethod.GET)
     public String sample() {
-        return "sample";
+        return "Nouvellepage";
     }
 
     @Autowired // This means to get the bean called userRepository
@@ -34,7 +39,7 @@ public class GestionController {
     private CompteRepository compteRepository;
 
     @RequestMapping(value = "/add", method = RequestMethod.GET) // Map ONLY GET Requests
-    public @ResponseBody String addNewUser(@RequestParam String login,
+    public @ResponseBody ModelAndView addNewUser(@RequestParam String login,
             @RequestParam String password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -46,35 +51,39 @@ public class GestionController {
         } catch (Exception e) {
             System.out.println("erreur" + e);
         }
-        return "saved !";
+        return new ModelAndView("redirect:" + "sample");
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public @ResponseBody Compte getCompte(@RequestParam String password,@RequestParam String login) {
+    public @ResponseBody
+    Compte getCompte(@RequestParam String password, @RequestParam String login) {
         /*if(compteRepository.existsById(id)){
             System.out.println("ui");
         }
         return compteRepository.findOneById(id);*/
         return compteRepository.findOneByPasswordAndLogin(password, login);
     }
-    
+
     @RequestMapping(value = "/delete", method = RequestMethod.GET) // Map ONLY GET Requests
-    public @ResponseBody void deleteUser(@RequestParam Long id) {
+    public @ResponseBody
+    void deleteUser(@RequestParam Long id) {
         compteRepository.deleteById(id);
     }
-    
+
     @RequestMapping(value = "/update", method = RequestMethod.GET) // Map ONLY GET Requests
-    public @ResponseBody void updateUser(@RequestParam Long id) {
-        if(compteRepository.existsById(id)){
+    public @ResponseBody
+    void updateUser(@RequestParam Long id) {
+        if (compteRepository.existsById(id)) {
             Compte unCompte = new Compte(id);
             unCompte.setLogin("ah");
             unCompte.setPassword("ah");
             compteRepository.save(unCompte);
         }
     }
-    
+
     @RequestMapping(value = "/all", method = RequestMethod.GET)
-    public @ResponseBody Iterable<Compte> getAllUsers() {
+    public @ResponseBody
+    Iterable<Compte> getAllUsers() {
         // This returns a JSON or XML with the users
         return compteRepository.findAll();
     } //To change body of generated methods, choose Tools | Templates.
