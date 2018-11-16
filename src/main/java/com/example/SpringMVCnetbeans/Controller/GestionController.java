@@ -7,6 +7,9 @@ package com.example.SpringMVCnetbeans.Controller;
 
 import Repository.CompteRepository;
 import com.example.SpringMVCnetbeans.Entity.Compte;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,7 +49,7 @@ public class GestionController {
         try {
             Compte n = new Compte();
             n.setLogin(login);
-            n.setPassword(password);
+            n.setPassword(encryptThisString(password));
             compteRepository.save(n);
         } catch (Exception e) {
             System.out.println("erreur" + e);
@@ -71,12 +74,11 @@ public class GestionController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET) // Map ONLY GET Requests
-    public @ResponseBody
-    void updateUser(@RequestParam Long id) {
-        if (compteRepository.existsById(id)) {
+    public @ResponseBody void updateUser(@RequestParam String login, @RequestParam String password, @RequestParam Long id) {
+        if(compteRepository.existsById(id)){
             Compte unCompte = new Compte(id);
-            unCompte.setLogin("ah");
-            unCompte.setPassword("ah");
+            unCompte.setLogin(login);
+            unCompte.setPassword(encryptThisString(password));
             compteRepository.save(unCompte);
         }
     }
@@ -87,4 +89,25 @@ public class GestionController {
         // This returns a JSON or XML with the users
         return compteRepository.findAll();
     } //To change body of generated methods, choose Tools | Templates.
+    
+    public static String encryptThisString(String password) 
+    { 
+        try { 
+            MessageDigest md = MessageDigest.getInstance("SHA-512"); 
+            byte[] messageDigest = md.digest(password.getBytes()); 
+ 
+            BigInteger no = new BigInteger(1, messageDigest);  
+            String hashtext = no.toString(16); 
+ 
+            while (hashtext.length() < 32) { 
+                hashtext = "0" + hashtext; 
+            } 
+ 
+            return hashtext; 
+        } 
+ 
+        catch (NoSuchAlgorithmException e) { 
+            throw new RuntimeException(e); 
+        } 
+    } 
 }
