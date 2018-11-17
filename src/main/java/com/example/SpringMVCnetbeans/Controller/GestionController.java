@@ -54,7 +54,7 @@ public class GestionController {
         } catch (Exception e) {
             System.out.println("erreur" + e);
         }
-        return new ModelAndView("redirect:" + "sample");
+        return new ModelAndView("redirect:" + "all");
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)

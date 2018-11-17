@@ -14,6 +14,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class SpringMvCnetbeansApplication extends SpringBootServletInitializer{
 
     public static void main(String[] args) {
-        SpringApplicationrun(SpringMvCnetbeansApplication.class, args);
+        SpringApplication.run(SpringMvCnetbeansApplication.class, args);
     }
 }
