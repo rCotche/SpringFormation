@@ -19,6 +19,22 @@ and open the template in the editor.
         <link rel="stylesheet" type="text/css" href="css/theme.css">
     </head>
     <body>
-        <div>TODO write content sample</div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th> Login </th>
+                    <th> Password </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${comptes.empty}">
+                    <td colspan="2"> No Books Available </td>
+                </tr>
+                <tr th:each="compte : ${comptes}">
+                    <td><span th:text="${compte.login}">Titl </span></td>
+                    <td><span th:text="${compte.password}"> Autho </span></td>
+                </tr>
+            </tbody>
+        </table>
     </body>
 </html>
