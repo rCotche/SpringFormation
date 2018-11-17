@@ -28,13 +28,13 @@ import org.springframework.web.servlet.View;
  * @author rcotche.cdi
  */
 @Controller
-@RequestMapping(path = "/demo")
+@RequestMapping(path = "/manager")
 @Service
 public class GestionController {
 
-    @RequestMapping(value = "/sample", method = RequestMethod.GET)
+    @RequestMapping(value = "/addCompte", method = RequestMethod.GET)
     public String sample() {
-        return "Nouvellepage";
+        return "ajouterCompte";
     }
 
     @Autowired // This means to get the bean called userRepository
