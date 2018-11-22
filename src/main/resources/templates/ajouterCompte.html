@@ -17,11 +17,11 @@ and open the template in the editor.
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link href="css/theme.css" rel="stylesheet"/>
+        <link th:href="@{/css/theme.css}" rel="stylesheet"/>
     </head>
     <body>
 
-        <form action="#" th:action="@{/manager/add}" th:object="${compte}">
+        <form action="#" class="formPerso" th:action="@{/manager/add}" th:object="${compte}">
             <div class="form-group">
                 <label for="login">Login</label>
                 <input type="text" class="form-control" id="login" 

@@ -17,10 +17,10 @@ and open the template in the editor.
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css" href="css/theme.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/theme.css}">
     </head>
     <body>
-        <table class="table table-striped">
+        <table class="table table-striped tablePerso">
             <thead>
                 <tr>
                     <th style="display: none;"> id </th>
@@ -31,7 +31,7 @@ and open the template in the editor.
             </thead>
             <tbody>
                 <tr th:if="${comptes.empty}">
-                    <td colspan="2"> No Books Available </td>
+                    <td colspan="2"> No Account Available </td>
                 </tr>
                 <tr th:each="compte : ${comptes}">
             <form action="#" th:action="@{update}" th:object="${compte}">
